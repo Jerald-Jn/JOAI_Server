@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionHandlers {
     Logger log=LoggerFactory.getLogger(ExceptionHandlers.class);
 
-    @ExceptionHandler(CustomRuntime.class)
-    public ResponseEntity<String> customRuntimeExceptionHandler(Exception e) {
-        log.info("CustomRuntimeException -> :{} ", e.getMessage());
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    @ExceptionHandler(CustomRuntimeException.class)
+    public ResponseEntity<?> CustomRuntimeExceptionHandler(Exception e) {
+        log.info("CustomRuntimeExceptionException -> :{} ", e.getMessage());
+        return new ResponseEntity<>(e.getMessage(),HttpStatus.REQUEST_TIMEOUT);
     }
 }

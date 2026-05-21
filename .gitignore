@@ -35,3 +35,4 @@ build/
 # Avoid application and .env file
 src/main/resources/*
 .env
+.dockerignore
