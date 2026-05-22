@@ -33,6 +33,6 @@ build/
 .vscode/
 
 # Avoid application and .env file
-src/main/resources/*
+!src/main/resources/*
 .env
 .dockerignore

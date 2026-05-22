@@ -1,0 +1,24 @@
+spring:
+  app.name: JoAI
+  profiles:
+    active: dev
+
+  ai:
+    google:
+      genai:
+        api-key: ${GEN_API}
+
+        chat:
+          options:
+            model: ${GEN_MODEL}
+
+            temperature: ${GEN_TEMPRATURE}
+
+    model:
+      chat: ${GEN_CHAT} 
+
+ec:
+  private:
+    key: ${PRIVATE_KEY}
+  public:
+    key: ${PUBLIC_KEY}
