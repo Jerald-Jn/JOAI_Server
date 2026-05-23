@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -35,10 +36,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                        .cors(c->c.configurationSource(gConfigurationSource()))
+                        .cors(c->c.configurationSource(configurationSource()))
                         .csrf(c->c.disable())
                         .authorizeHttpRequests(request ->
-                            request.requestMatchers("/jo/register","/jo/login").permitAll()
+                            request
+                            .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                            .requestMatchers("/jo/register","/jo/login").permitAll()
                             .anyRequest().authenticated())
                         .sessionManagement(t ->t.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
@@ -63,7 +66,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource gConfigurationSource() {
+    public CorsConfigurationSource configurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("https://jo-szrs.onrender.com"));
         config.setAllowedMethods(List.of("*"));
