@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.JoAI.dto.ChatRequest;
 import com.JoAI.model.User;
 import com.JoAI.repository.UserRepo;
 import com.JoAI.service.JoAIService;
@@ -30,13 +31,15 @@ public class JoAIController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> getResponse(@RequestBody String message){
+    public ResponseEntity<?> getResponse(@RequestBody ChatRequest chatRequest){
+        String message = chatRequest.getMessage();
         log.info("message : {}",message);
         return ResponseEntity.ok().body(joAIService.getResponse(message));
     }
 
     @GetMapping("/history")
     public ResponseEntity<?> getHistory() {
+        log.info("get chat history");
         return ResponseEntity.ok().body(joAIService.getHistoty());
     }
 

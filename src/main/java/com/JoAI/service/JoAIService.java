@@ -46,7 +46,7 @@ public class JoAIService {
         this.jwtService = jwtService;
     }
 
-    public ResponseEntity<?> getResponse(String message) throws CustomRuntimeException {
+    public ResponseEntity<?> getResponse(String message) {
         String response = null;
         try {
             LocalDate today = LocalDate.now();

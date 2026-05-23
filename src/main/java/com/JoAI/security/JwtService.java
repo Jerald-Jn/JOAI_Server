@@ -1,8 +1,8 @@
 package com.JoAI.security;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+// import java.io.BufferedReader;
+// import java.io.FileReader;
+// import java.io.IOException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
@@ -53,10 +53,7 @@ public class JwtService {
         if(privateKey.startsWith("-----BEGIN PRIVATE KEY-----")){
             tokenKey = getKey(privateKey).getBytes();
 
-        } 
-        // else {
-        //     tokenKey = getKeyFromFile(privateKey).getBytes();
-        // }
+        }
         byte[] secretKeyBytes = Base64.getDecoder().decode(tokenKey);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(secretKeyBytes);
             KeyFactory keyFactory = KeyFactory.getInstance("EC");
@@ -72,9 +69,6 @@ public class JwtService {
         if (publicKey.startsWith("-----BEGIN PUBLIC KEY-----")) {
             tokenKey = getKey(publicKey);
         }
-        //  else {
-        //     tokenKey = getKeyFromFile(publicKey);
-        // }
         byte[] secretKeyBytes = Base64.getDecoder().decode(tokenKey);
         X509EncodedKeySpec keySpec = new X509EncodedKeySpec(secretKeyBytes);
             KeyFactory keyFactory = KeyFactory.getInstance("EC");
@@ -91,29 +85,6 @@ public class JwtService {
                 .replace("-----BEGIN PUBLIC KEY-----", "").replaceAll("-----END PUBLIC KEY-----", ""));
         return builder.toString();
     }
-
-    // private String getKeyFromFile(String file) {
-    //     String fileName = file;
-    //     String content = null;
-    //     StringBuilder builder = new StringBuilder();
-    //     FileReader fileReader;
-    //     try {
-    //         fileReader = new FileReader(fileName);
-    //         if (fileReader != null) {
-    //     BufferedReader bufferedReader = new BufferedReader(fileReader);
-    //     while ((content = bufferedReader.readLine()) != null) {
-    //     builder.append(file.replace(System.lineSeparator(), "")
-    //             .replace("-----BEGIN PRIVATE KEY-----", "").replaceAll("-----END PRIVATE KEY-----", "")
-    //             .replace("-----BEGIN PUBLIC KEY-----", "").replaceAll("-----END PUBLIC KEY-----", ""));
-    //     }
-    //     bufferedReader.close();
-    //     }
-    //     } catch (IOException e) {
-    //         throw new CustomRuntimeException("error in getkeyFromFile method "+e);
-    //     }
-        
-    //     return builder.toString();
-    // }
 
     public String getUsernameByToken(String token) {
         try {
